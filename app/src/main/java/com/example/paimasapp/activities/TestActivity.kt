@@ -1,7 +1,8 @@
-package com.example.paimasapp
+package com.example.paimasapp.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.paimasapp.R
 
 class TestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
