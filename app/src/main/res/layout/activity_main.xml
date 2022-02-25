@@ -7,37 +7,40 @@
     tools:context=".activities.MainActivity">
 
     <TextView
+        android:id="@+id/timeDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/timeDisplay"
         android:text="Time:"
         android:textSize="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.302"
+        app:layout_constraintHorizontal_bias="0.282"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintVertical_bias="0.138" />
 
     <Button
         android:id="@+id/deactivate_button"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginEnd="140dp"
-        android:layout_marginBottom="376dp"
         android:background="@drawable/round_button"
         android:text="@string/deactivate"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"></Button>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></Button>
 
     <Button
+        android:id="@+id/setAlarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="144dp"
 
-        android:layout_marginBottom="248dp"
         android:text="Set Alarm"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"></Button>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.721"></Button>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
