@@ -2,13 +2,7 @@ package com.example.paimasapp.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
-import android.widget.TextClock
-import android.widget.TextView
-import android.widget.TimePicker
 import com.example.paimasapp.R
-import java.text.SimpleDateFormat
 import java.util.*
 
 class TestActivity : AppCompatActivity() {
@@ -18,7 +12,7 @@ class TestActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.alarm_picker_fragment)
+        setContentView(R.layout.alarm_frag)
 
        /* val timePicker: TimePicker = findViewById(R.id.timePicker)
         val textClock: TextClock = findViewById(R.id.textClock)

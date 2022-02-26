@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import com.example.paimasapp.R
 
@@ -19,9 +21,7 @@ class MainActivity : AppCompatActivity() {
 
         val button = findViewById<Button>(R.id.setAlarm)
         button.setOnClickListener{
-            val intent = Intent(this, TestActivity::class.java
-            )
-            startActivity(intent)
+            setAlarmButton()
         }
     }
 
@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
 
         if (id == R.id.action_one) {
             Toast.makeText(this, "Item One Clicked", Toast.LENGTH_LONG).show()
+            setAlarmButton()
             return true
         }
         if (id == R.id.action_two) {
@@ -52,5 +53,17 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun SetTime(hours:Int, min:Int){
+        var timeDisplay = findViewById<TextView>(R.id.timeDisplay)
+        timeDisplay.text = "Alarm Set: $hours:$min"
+
+        val saveData = SaveData(this)
+        saveData.setAlarm(hours, min)
+    }
+
+    fun setAlarmButton(){
+        val alarmfrag = AlarmFrag()
+        alarmfrag.show(supportFragmentManager, "Select time")
+    }
 }
 
