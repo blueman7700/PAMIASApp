@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/Primary"
     tools:context=".activities.MainActivity">
 
 
@@ -15,8 +16,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/Secondary"
         app:layout_constraintTop_toTopOf="parent">
 
+        <TextClock
+            android:id="@+id/textClock"
+            android:layout_width="150dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:textColor="@color/Text"
+            android:layout_margin="16dp"
+            android:layout_marginBottom="56dp"
+            android:gravity="center"
+            android:textSize="40sp"/>
 
         <TextView
             android:id="@+id/timeDisplay"
@@ -24,8 +36,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="16dp"
-            android:text="Time:"
-            android:textSize="40dp"
+            android:text="Alarm Set:"
+            android:textSize="30dp"
+            android:textColor="@color/Text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.282"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -40,25 +53,28 @@
             android:layout_height="150dp"
             android:layout_gravity="center"
             android:layout_margin="16dp"
+            android:backgroundTint="@color/Accent"
             android:background="@drawable/round_button"
             android:text="@string/deactivate"
+            android:textColor="@color/Accent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></Button>
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <Button
             android:id="@+id/setAlarm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="right"
             android:layout_margin="16dp"
             android:text="Set Alarm"
+            android:textColor="@color/Text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.45"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="0.721"></Button>
+            app:layout_constraintVertical_bias="0.721"/>
     </LinearLayout>
 
 

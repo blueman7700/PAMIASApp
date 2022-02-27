@@ -3,6 +3,7 @@
     <item android:state_pressed="false">
         <shape android:shape="oval">
             <solid android:color="#fa09ad"/>
+
         </shape>
     </item>
     <item android:state_pressed="true">
@@ -10,4 +11,5 @@
             <solid android:color="#c20586"/>
         </shape>
     </item>
+
 </selector>
