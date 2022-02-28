@@ -12,6 +12,7 @@ class myBroadcastReceiver: BroadcastReceiver() {
             val b = intent.extras
             Toast.makeText(context, b!!.getString("message"), Toast.LENGTH_LONG).show()
             Log.d("test", "Alarm Trigger")
+            //Put alarm trigger code here
         }
     }
 }
