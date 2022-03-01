@@ -1,5 +1,6 @@
 package com.example.paimasapp.activities
 
+
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -7,6 +8,15 @@ import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import com.example.paimasapp.R
 import com.example.paimasapp.services.PhidgetService
@@ -54,6 +64,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val button = findViewById<Button>(R.id.setAlarm)
+        button.setOnClickListener{
+            setAlarmButton()
+        }
+        
         val intentFilter = IntentFilter("server_start")
         registerReceiver(br, intentFilter)
         startService(Intent(this, PhidgetService::class.java))
@@ -90,5 +105,46 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         v0.close()
         lcd.close()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here.
+        val id = item.getItemId()
+
+        if (id == R.id.action_one) {
+            Toast.makeText(this, "Item One Clicked", Toast.LENGTH_LONG).show()
+            setAlarmButton()
+            return true
+        }
+        if (id == R.id.action_two) {
+            Toast.makeText(this, "Item Two Clicked", Toast.LENGTH_LONG).show()
+            return true
+        }
+        if (id == R.id.action_three) {
+            Toast.makeText(this, "Item Three Clicked", Toast.LENGTH_LONG).show()
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
+
+    }
+
+    fun SetTime(hours:Int, min:Int){
+        var timeDisplay = findViewById<TextView>(R.id.timeDisplay)
+        timeDisplay.text = "Alarm Set: $hours:$min"
+
+        val saveData = SaveData(this)
+        saveData.setAlarm(hours, min)
+    }
+
+    fun setAlarmButton(){
+        val alarmfrag = AlarmFrag()
+        alarmfrag.show(supportFragmentManager, "Select time")
     }
 }
