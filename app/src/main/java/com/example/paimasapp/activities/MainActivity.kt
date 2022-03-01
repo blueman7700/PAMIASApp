@@ -8,13 +8,8 @@ import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -32,33 +27,10 @@ class MainActivity : AppCompatActivity() {
     private val br : BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(p0: Context?, p1: Intent?) {
             Log.d("Server", "Server Message Received")
-            setupPhidgets()
-        }
-
-    }
-
-    private val attachListener = AttachListener {
-        Log.d("Attach Listener", it.toString())
-    }
-
-    private val detachListener = DetachListener {
-        Log.d("Detach Listener", it.toString())
-    }
-
-    private val voltageChangeListener = VoltageInputVoltageChangeListener {
-        Log.d("Voltage Change", it.voltage.toString())
-        try {
-
-            boxOpen = !(it.voltage > 3f || it.voltage < 2f)
-
-            lcd.writeText(LCDFont.DIMENSIONS_5X8, 0, 0, "")
-            lcd.flush()
-            lcd.writeText(LCDFont.DIMENSIONS_5X8, 0, 0, "Box is open: $boxOpen ")
-            lcd.flush()
-        } catch (e: PhidgetException) {
-            e.printStackTrace()
         }
     }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,43 +40,16 @@ class MainActivity : AppCompatActivity() {
         button.setOnClickListener{
             setAlarmButton()
         }
-        
+        val deactivateButton = findViewById<Button>(R.id.btn_deactivate)
+        deactivateButton.setOnClickListener { onDisableClick() }
         val intentFilter = IntentFilter("server_start")
         registerReceiver(br, intentFilter)
         startService(Intent(this, PhidgetService::class.java))
     }
 
-    private fun setupPhidgets() {
-        try {
-            lcd.deviceSerialNumber = 39831
-            v0.deviceSerialNumber = 39831
-            v0.channel = 0
-
-            lcd.open(5000)
-            v0.open(5000)
-
-            lcd.backlight = 1.0
-            lcd.contrast = 0.5
-
-            v0.addAttachListener(attachListener)
-            v0.addDetachListener(detachListener)
-            v0.addVoltageChangeListener(voltageChangeListener)
-
-            v0.voltageChangeTrigger = 0.1
-
-            lcd.writeText(LCDFont.DIMENSIONS_5X8, 0, 0, "Hello...")
-            lcd.writeText(LCDFont.DIMENSIONS_5X8, 0, 1, "voltage: ${v0.voltage}")
-            lcd.flush()
-
-        } catch (e: PhidgetException) {
-            e.printStackTrace()
-        }
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         v0.close()
-        lcd.close()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -135,16 +80,24 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun SetTime(hours:Int, min:Int){
-        var timeDisplay = findViewById<TextView>(R.id.timeDisplay)
-        timeDisplay.text = "Alarm Set: $hours:$min"
+    fun setTime(hours:Int, min:Int){
+        val timeDisplay = findViewById<TextView>(R.id.timeDisplay)
+
+        timeDisplay.text = "Alarm Set: $hours:${String.format("%02d", min)}"
 
         val saveData = SaveData(this)
         saveData.setAlarm(hours, min)
     }
 
-    fun setAlarmButton(){
-        val alarmfrag = AlarmFrag()
-        alarmfrag.show(supportFragmentManager, "Select time")
+    private fun setAlarmButton(){
+        val alarmFrag = AlarmFrag()
+        alarmFrag.show(supportFragmentManager, "Select time")
+    }
+
+    private fun onDisableClick(){
+
+        val intent = Intent()
+        intent.setAction("deactivate_alarm")
+        sendBroadcast(intent)
     }
 }

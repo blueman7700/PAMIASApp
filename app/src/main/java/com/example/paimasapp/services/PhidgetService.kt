@@ -4,21 +4,50 @@ import android.app.Service
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.IBinder
 import android.util.Log
 import android.widget.Toast
-import com.phidget22.Net
-import com.phidget22.PhidgetException
-import com.phidget22.ServerType
+import com.phidget22.*
 
 class PhidgetService : Service() {
 
     private val ip = "137.44.116.203"
     private val port = 5661
+    private val lcd = LCD()
+    private val v0 = VoltageInput()
+    private val d0 = DigitalOutput()
+    private var boxOpen = false
 
-    private val br : BroadcastReceiver = object : BroadcastReceiver() {
+    private val mBroadcastReceiver : BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(p0: Context?, p1: Intent?) {
-            Log.d("Message_Received", "Service received message")
+
+            if (p1 != null) {
+
+                if (p1.action == "activate_alarm") {
+                    Log.d("Message_Received", "Alarm Activated")
+                    d0.state = true
+
+                } else if (p1.action == "deactivate_alarm") {
+                    Log.d("Message_Received", "Alarm Deactivated")
+                    d0.state = false
+
+                } else if (p1.action == "print_lcd") {
+                    Log.d("Message_Received", "Service received message")
+                    val l1: String? = p1.getStringExtra("l1")
+                    val l2: String? = p1.getStringExtra("l2")
+
+                    lcd.clear()
+
+                    if(l1 != null) {
+                        lcd.writeText(LCDFont.DIMENSIONS_5X8, 0, 0, l1)
+                    }
+                    if(l2 != null) {
+                        lcd.writeText(LCDFont.DIMENSIONS_5X8, 0, 1, l2)
+                    }
+                    lcd.flush()
+                }
+            }
         }
     }
 
@@ -32,6 +61,12 @@ class PhidgetService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+
+        val intentFilter = IntentFilter("print_lcd")
+        intentFilter.addAction("activate_alarm")
+        intentFilter.addAction("deactivate_alarm")
+        registerReceiver(mBroadcastReceiver, intentFilter)
+
         try {
             //Enable server discovery to list remote Phidgets
             this.getSystemService(Context.NSD_SERVICE)
@@ -39,7 +74,51 @@ class PhidgetService : Service() {
 
             Net.addServer("", ip, port, "", 0)
             Log.d("srv_info", "Server Started!")
+
+            lcd.deviceSerialNumber = 39831
+            lcd.open(5000)
+            lcd.backlight = 1.0
+            lcd.contrast = 0.5
+
+            v0.deviceSerialNumber = 39831
+            v0.channel = 1
+
+            d0.deviceSerialNumber = 39831
+            d0.channel = 0
+
+            v0.open(5000)
+            d0.open(5000)
+
+            v0.addAttachListener(attachListener)
+            v0.addDetachListener(detachListener)
+            v0.addVoltageChangeListener(voltageChangeListener)
+
+            v0.voltageChangeTrigger = 0.1
+
             sendBroadcast()
+        } catch (e: PhidgetException) {
+            e.printStackTrace()
+        }
+    }
+
+    private val attachListener = AttachListener {
+        Log.d("Attach Listener", it.toString())
+    }
+
+    private val detachListener = DetachListener {
+        Log.d("Detach Listener", it.toString())
+    }
+
+    private val voltageChangeListener = VoltageInputVoltageChangeListener {
+        Log.d("Voltage Change", it.voltage.toString())
+        try {
+            boxOpen = !(it.voltage > 3f || it.voltage < 2f)
+            if(boxOpen) {
+                lcd.backlight = 1.0
+            } else {
+                lcd.backlight = 0.0
+            }
+
         } catch (e: PhidgetException) {
             e.printStackTrace()
         }

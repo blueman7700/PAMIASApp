@@ -20,7 +20,7 @@ class AlarmFrag: DialogFragment() {
 
         buShedge.setOnClickListener {
             val ma = activity as MainActivity
-            ma.SetTime(timerpicker.hour, timerpicker.minute)
+            ma.setTime(timerpicker.hour, timerpicker.minute)
             this.dismiss()
         }
 

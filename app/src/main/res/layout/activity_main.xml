@@ -46,19 +46,12 @@
 
 
         <Button
-            android:id="@+id/deactivate_button"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:id="@+id/btn_deactivate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="16dp"
-            android:background="@drawable/round_button"
-            android:backgroundTint="@color/Accent"
-            android:text="@string/deactivate"
-            android:textColor="@color/Text"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:text="Deactivate"
+            android:textColor="@color/Text" />
 
         <Button
             android:id="@+id/setAlarm"
