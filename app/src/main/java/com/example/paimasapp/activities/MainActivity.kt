@@ -1,6 +1,5 @@
 package com.example.paimasapp.activities
 
-
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -61,21 +60,22 @@ class MainActivity : AppCompatActivity() {
         val id = item.itemId
 
         if (id == R.id.action_one) {
-            Toast.makeText(this, "Item One Clicked", Toast.LENGTH_LONG).show()
-            setAlarmButton()
-            return true
+            // I DON'T KNOW HOW TO EXIT THIS
+            setContentView(R.layout.settings_activity)
+//            Toast.makeText(this, "Item One Clicked", Toast.LENGTH_LONG).show()
+//            setAlarmButton()
+//            return true
         }
         if (id == R.id.action_two) {
             Toast.makeText(this, "Item Two Clicked", Toast.LENGTH_LONG).show()
-            return true
+//            return true
         }
         if (id == R.id.action_three) {
             Toast.makeText(this, "Item Three Clicked", Toast.LENGTH_LONG).show()
-            return true
+//            return true
         }
 
         return super.onOptionsItemSelected(item)
-
     }
 
     fun setTime(hours: Int, min: Int) {
