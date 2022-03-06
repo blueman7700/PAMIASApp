@@ -7,20 +7,20 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TimePicker
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.example.paimasapp.R
 
 class AlarmFrag: DialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var myView = inflater.inflate(R.layout.alarm_frag, container, false)
-        var buShedge = myView.findViewById(R.id.SheduleButton) as Button
-        var timerpicker = myView.findViewById(R.id.timePicker) as TimePicker
+        val myView = inflater.inflate(R.layout.alarm_frag, container, false)
 
-        buShedge.setOnClickListener {
+        // Classy names..
+        val buttonOfScheduling = myView.findViewById(R.id.SheduleButton) as Button
+        val pickerOfTimes = myView.findViewById(R.id.timePicker) as TimePicker
+
+        buttonOfScheduling.setOnClickListener {
             val ma = activity as MainActivity
-            ma.setTime(timerpicker.hour, timerpicker.minute)
+            ma.setTime(pickerOfTimes.hour, pickerOfTimes.minute)
             this.dismiss()
         }
 

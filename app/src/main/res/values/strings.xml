@@ -1,6 +1,21 @@
 <resources>
-    <string name="app_name">PAIMASApp</string>
+
+    <!-- The Boring Stuff -->
+    <string name="app_name">PAIMAS</string>
+
+    <!-- Alarm stuff -->
     <string name="deactivate">Deactivate</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="alarm_set">Alarm Set:</string>
+    <string name="set_alarm">Set Alarm</string>
+    <string name="schedule_alarm">Schedule Alarm</string>
+    <string name="schedule_alarm_btn">Schedule Alarm</string>
+
+    <!-- Settings Stuff -->
+    <string name="settings">Settings</string>
+    <string name="more_settings">More Settings</string>
+    <string name="even_more_settings">Even More Settings</string>
+
+    <!-- Super Duper Important Stuff -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

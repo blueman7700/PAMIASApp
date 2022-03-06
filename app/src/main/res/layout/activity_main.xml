@@ -39,10 +39,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
 
-            android:text="Alarm Set:"
+            android:text="@string/alarm_set"
             android:textColor="@color/Text"
-            android:textSize="30dp"
-            />
+            android:textSize="30sp" />
 
 
         <Button
@@ -50,23 +49,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Deactivate"
-            android:textColor="@color/Text" />
+            android:text="@string/deactivate"
+            android:textColor="#ECEFF1" />
 
         <Button
             android:id="@+id/setAlarm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_gravity="end"
             android:layout_margin="16dp"
-            android:text="Set Alarm"
             android:backgroundTint="@color/Primary2"
+            android:text="@string/set_alarm"
             android:textColor="@color/Text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.45"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintVertical_bias="0.721" />
+
     </LinearLayout>
 
 

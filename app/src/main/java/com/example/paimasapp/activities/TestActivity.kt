@@ -3,7 +3,7 @@ package com.example.paimasapp.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.paimasapp.R
-import java.util.*
+//import java.util.*
 
 class TestActivity : AppCompatActivity() {
 

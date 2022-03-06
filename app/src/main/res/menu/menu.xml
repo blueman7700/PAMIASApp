@@ -5,11 +5,11 @@
 
     <item
         android:id="@+id/action_one"
-        android:title="Item One"/>
+        android:title="@string/settings"/>
     <item
         android:id="@+id/action_two"
-        android:title="Item Two"/>
+        android:title="@string/more_settings"/>
     <item
         android:id="@+id/action_three"
-        android:title="Item Three"/>
+        android:title="@string/even_more_settings" />
 </menu>

@@ -7,7 +7,6 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.IBinder
 import android.util.Log
-import android.widget.Toast
 import com.phidget22.*
 
 class PhidgetService : Service() {
@@ -39,12 +38,10 @@ class PhidgetService : Service() {
 
                     lcd.clear()
 
-                    if(l1 != null) {
-                        lcd.writeText(LCDFont.DIMENSIONS_5X8, 0, 0, l1)
-                    }
-                    if(l2 != null) {
-                        lcd.writeText(LCDFont.DIMENSIONS_5X8, 0, 1, l2)
-                    }
+                    if (l1 != null) lcd.writeText(LCDFont.DIMENSIONS_5X8, 0, 0, l1)
+                    if (l2 != null) lcd.writeText(LCDFont.DIMENSIONS_5X8, 0, 1, l2)
+
+                    // Oh fuck, we forgot to flush again
                     lcd.flush()
                 }
             }
@@ -68,7 +65,7 @@ class PhidgetService : Service() {
         registerReceiver(mBroadcastReceiver, intentFilter)
 
         try {
-            //Enable server discovery to list remote Phidgets
+            // Enable server discovery to list remote Phidgets
             this.getSystemService(Context.NSD_SERVICE)
             Net.enableServerDiscovery(ServerType.DEVICE_REMOTE)
 
@@ -113,6 +110,7 @@ class PhidgetService : Service() {
         Log.d("Voltage Change", it.voltage.toString())
         try {
             boxOpen = !(it.voltage > 3f || it.voltage < 2f)
+
             if(boxOpen) {
                 lcd.backlight = 1.0
             } else {
@@ -131,7 +129,8 @@ class PhidgetService : Service() {
 
     private fun sendBroadcast() {
         val intent = Intent()
-        intent.setAction("server_start")
+        intent.action = "server_start"
         sendBroadcast(intent)
     }
+
 }

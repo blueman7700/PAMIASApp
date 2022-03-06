@@ -19,18 +19,16 @@ import com.phidget22.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val lcd = LCD()
+//    private val lcd = LCD()
     private val v0 = VoltageInput()
 
-    private var boxOpen : Boolean = true
+//    private var boxOpen : Boolean = true
 
     private val br : BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(p0: Context?, p1: Intent?) {
             Log.d("Server", "Server Message Received")
         }
     }
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +58,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here.
-        val id = item.getItemId()
+        val id = item.itemId
 
         if (id == R.id.action_one) {
             Toast.makeText(this, "Item One Clicked", Toast.LENGTH_LONG).show()
@@ -80,24 +78,23 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun setTime(hours:Int, min:Int){
+    fun setTime(hours: Int, min: Int) {
         val timeDisplay = findViewById<TextView>(R.id.timeDisplay)
 
-        timeDisplay.text = "Alarm Set: $hours:${String.format("%02d", min)}"
+        "Alarm Set: $hours:${String.format("%02d", min)}".also { timeDisplay.text = it }
 
         val saveData = SaveData(this)
         saveData.setAlarm(hours, min)
     }
 
-    private fun setAlarmButton(){
+    private fun setAlarmButton() {
         val alarmFrag = AlarmFrag()
         alarmFrag.show(supportFragmentManager, "Select time")
     }
 
-    private fun onDisableClick(){
-
+    private fun onDisableClick() {
         val intent = Intent()
-        intent.setAction("deactivate_alarm")
+        intent.action = "deactivate_alarm"
         sendBroadcast(intent)
     }
 }

@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginTop="16dp"
-            android:text="Schedule Alarm"
+            android:text="@string/schedule_alarm"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/Text"
@@ -61,6 +61,7 @@
                 android:layout_weight="0.6"
                 android:textColor="@color/Text"
                 android:timePickerMode="clock" />
+
         </LinearLayout>
 
         <Button
@@ -71,10 +72,11 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="104dp"
             android:backgroundTint="@color/black"
-            android:text="Schedule Alarm"
+            android:text="@string/schedule_alarm_btn"
             android:textColor="@color/Text"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="DuplicateSpeakableTextCheck" />
 
     </LinearLayout>
 
