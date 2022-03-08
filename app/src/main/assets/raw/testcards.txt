@@ -1,0 +1,9 @@
+[[Card]]
+display = "Hello"
+options = ["Hei", "Hallo", "Hællo", "Hi"]
+answer = "Hallo"
+
+[[Card]]
+display = "Hello"
+options = ["Hei", "Hallo", "Hællo", "Hi"]
+answer = "Hallo"

@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.res.AssetManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -13,15 +14,19 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.example.paimasapp.R
+// Comment out to run sans Phidgets
 import com.example.paimasapp.services.PhidgetService
 import com.phidget22.*
 
 class MainActivity : AppCompatActivity() {
 
 //    private val lcd = LCD()
+
+    // Comment out to run sans Phidgets
     private val v0 = VoltageInput()
 
-//    private var boxOpen : Boolean = true
+    // Comment out to run sans Phidgets
+    private var boxOpen : Boolean = true
 
     private val br : BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(p0: Context?, p1: Intent?) {
@@ -37,15 +42,25 @@ class MainActivity : AppCompatActivity() {
         button.setOnClickListener{
             setAlarmButton()
         }
+
         val deactivateButton = findViewById<Button>(R.id.btn_deactivate)
         deactivateButton.setOnClickListener { onDisableClick() }
+
+        // Hopefully this works
+        val instructionsButton = findViewById<Button>(R.id.open_instructions)
+        instructionsButton.setOnClickListener { onOpeningInstructions() }
+
         val intentFilter = IntentFilter("server_start")
         registerReceiver(br, intentFilter)
+
+        // Comment out to run sans Phidgets
         startService(Intent(this, PhidgetService::class.java))
+
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        // Comment out to run sans Phidgets
         v0.close()
     }
 
@@ -97,4 +112,11 @@ class MainActivity : AppCompatActivity() {
         intent.action = "deactivate_alarm"
         sendBroadcast(intent)
     }
+
+    private fun onOpeningInstructions() {
+        val instructionsFragment = InstructionsFrag()
+        instructionsFragment.show(supportFragmentManager, "What goes in here?")
+
+    }
+
 }

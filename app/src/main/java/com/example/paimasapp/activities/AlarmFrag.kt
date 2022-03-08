@@ -12,7 +12,7 @@ import com.example.paimasapp.R
 class AlarmFrag: DialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val myView = inflater.inflate(R.layout.alarm_frag, container, false)
+        val myView = inflater.inflate(R.layout.alarm_fragment, container, false)
 
         // Classy names..
         val buttonOfScheduling = myView.findViewById(R.id.SheduleButton) as Button

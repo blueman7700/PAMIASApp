@@ -7,12 +7,9 @@ import com.example.paimasapp.R
 
 class TestActivity : AppCompatActivity() {
 
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.alarm_frag)
+        setContentView(R.layout.alarm_fragment)
 
        /* val timePicker: TimePicker = findViewById(R.id.timePicker)
         val textClock: TextClock = findViewById(R.id.textClock)

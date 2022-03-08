@@ -1,7 +1,7 @@
 <resources>
 
     <!-- The Boring Stuff -->
-    <string name="app_name">PAIMAS</string>
+    <string name="app_name">PAMIAS</string>
 
     <string name="title_activity_settings">SettingsActivity</string>
 
@@ -20,6 +20,10 @@
     <string name="interactions">Interactions</string>
     <string name="mental_interactions">Mental Interactions</string>
     <string name="physical_interactions">Physical Interactions</string>
+
+    <!-- Instructions Fragment -->
+    <string name="instructions">Instructions</string>
+    <string name="solve_this_card">Solve this card</string>
 
     <!-- Super Duper Important Stuff -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

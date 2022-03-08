@@ -22,27 +22,30 @@ class PhidgetService : Service() {
         override fun onReceive(p0: Context?, p1: Intent?) {
 
             if (p1 != null) {
+                when /* switch */ (p1.action) {
+                    /* case: */ "activate_alarm" -> {
+                        Log.d("Message_Received", "Alarm Activated")
+                        d0.state = true
 
-                if (p1.action == "activate_alarm") {
-                    Log.d("Message_Received", "Alarm Activated")
-                    d0.state = true
+                    }
+                    /* case: */ "deactivate_alarm" -> {
+                        Log.d("Message_Received", "Alarm Deactivated")
+                        d0.state = false
 
-                } else if (p1.action == "deactivate_alarm") {
-                    Log.d("Message_Received", "Alarm Deactivated")
-                    d0.state = false
+                    }
+                    /* case: */ "print_lcd" -> {
+                        Log.d("Message_Received", "Service received message")
+                        val l1: String? = p1.getStringExtra("l1")
+                        val l2: String? = p1.getStringExtra("l2")
 
-                } else if (p1.action == "print_lcd") {
-                    Log.d("Message_Received", "Service received message")
-                    val l1: String? = p1.getStringExtra("l1")
-                    val l2: String? = p1.getStringExtra("l2")
+                        lcd.clear()
 
-                    lcd.clear()
+                        if (l1 != null) lcd.writeText(LCDFont.DIMENSIONS_5X8, 0, 0, l1)
+                        if (l2 != null) lcd.writeText(LCDFont.DIMENSIONS_5X8, 0, 1, l2)
 
-                    if (l1 != null) lcd.writeText(LCDFont.DIMENSIONS_5X8, 0, 0, l1)
-                    if (l2 != null) lcd.writeText(LCDFont.DIMENSIONS_5X8, 0, 1, l2)
-
-                    // Oh fuck, we forgot to flush again
-                    lcd.flush()
+                        // Oh fuck, we forgot to flush again
+                        lcd.flush()
+                    }
                 }
             }
         }
