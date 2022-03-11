@@ -1,4 +1,4 @@
-package com.example.paimasapp
+package com.example.paimasapp.structs
 
 import android.content.res.AssetManager
 import android.content.res.Resources

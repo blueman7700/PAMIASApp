@@ -20,6 +20,7 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        //TODO: Save settings in SharedPrefs
         finish()
     }
 
