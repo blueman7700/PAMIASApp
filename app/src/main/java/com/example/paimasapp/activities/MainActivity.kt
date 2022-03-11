@@ -38,6 +38,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setSupportActionBar(findViewById(R.id.toolbar))
+        supportActionBar!!.title = "PAIMAS"
+
         val button = findViewById<Button>(R.id.setAlarm)
         button.setOnClickListener{
             setAlarmButton()
@@ -75,11 +78,8 @@ class MainActivity : AppCompatActivity() {
         val id = item.itemId
 
         if (id == R.id.action_one) {
-            // I DON'T KNOW HOW TO EXIT THIS
-            setContentView(R.layout.settings_activity)
-//            Toast.makeText(this, "Item One Clicked", Toast.LENGTH_LONG).show()
-//            setAlarmButton()
-//            return true
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
         }
         if (id == R.id.action_two) {
             Toast.makeText(this, "Item Two Clicked", Toast.LENGTH_LONG).show()

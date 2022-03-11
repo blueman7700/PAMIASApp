@@ -13,13 +13,10 @@
         android:theme="@style/Theme.PAIMASApp">
         <activity
             android:name=".activities.SettingsActivity"
-            android:exported="false"
-            android:label="@string/title_activity_settings" />
-
+            android:exported="false" />
         <service
             android:name=".services.PhidgetService"
             android:enabled="true" />
-
         <activity
             android:name=".activities.TestActivity"
             android:exported="false" />
@@ -28,7 +25,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
