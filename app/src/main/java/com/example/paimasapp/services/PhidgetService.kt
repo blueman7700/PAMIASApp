@@ -11,8 +11,10 @@ import com.phidget22.*
 
 class PhidgetService : Service() {
 
-    private val ip = "137.44.116.203"
-    private val port = 5661
+    val ip = "137.44.116.242"
+    val deviceNumber = 39831
+    val port = 5661
+    
     private val lcd = LCD()
     private val v0 = VoltageInput()
     private val d0 = DigitalOutput()
@@ -75,15 +77,15 @@ class PhidgetService : Service() {
             Net.addServer("", ip, port, "", 0)
             Log.d("srv_info", "Server Started!")
 
-            lcd.deviceSerialNumber = 39831
+            lcd.deviceSerialNumber = deviceNumber
             lcd.open(5000)
             lcd.backlight = 1.0
             lcd.contrast = 0.5
 
-            v0.deviceSerialNumber = 39831
-            v0.channel = 1
+            v0.deviceSerialNumber = deviceNumber
+            v0.channel = 0
 
-            d0.deviceSerialNumber = 39831
+            d0.deviceSerialNumber = deviceNumber
             d0.channel = 0
 
             v0.open(5000)
