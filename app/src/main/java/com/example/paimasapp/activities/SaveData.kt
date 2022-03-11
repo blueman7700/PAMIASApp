@@ -31,6 +31,12 @@ class SaveData(context: Context) {
 
         am.set(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
         Log.d("test", "Alarm Set")
+
+        val msgIntent = Intent()
+        msgIntent.setAction("print_lcd")
+        msgIntent.putExtra("l1", "Alarm Set For:")
+        msgIntent.putExtra("l2", String.format("%02d:%02d", hour, min))
+        context!!.sendBroadcast(msgIntent)
     }
 
 }
