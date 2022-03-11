@@ -11,7 +11,7 @@ import com.phidget22.*
 
 class PhidgetService : Service() {
 
-    val ip = "137.44.116.242"
+    val ip = "137.44.93.110"
     val deviceNumber = 39831
     val port = 5661
     
