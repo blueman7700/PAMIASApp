@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.IBinder
 import android.util.Log
+import com.example.paimasapp.background.handlers.SaveAlarmTimeHandler
 import com.phidget22.*
 
 class PhidgetService : Service() {
@@ -14,12 +15,12 @@ class PhidgetService : Service() {
     val ip = "137.44.117.172"
     val deviceNumber = 39831
     val port = 5661
-    
+    private var oldtime: Long = 0
     private val lcd = LCD()
     private val v0 = VoltageInput()
     private val d0 = DigitalOutput()
     private var boxOpen = false
-
+    val alarmHandler: SaveAlarmTimeHandler = SaveAlarmTimeHandler(this)
     private val mPhidgetActionReceiver : BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(p0: Context?, p1: Intent?) {
 
@@ -113,18 +114,26 @@ class PhidgetService : Service() {
 
     private val voltageChangeListener = VoltageInputVoltageChangeListener {
         Log.d("Voltage Change", it.voltage.toString())
+
         try {
             boxOpen = !(it.voltage > 3f || it.voltage < 2f)
+            var curtime = System.currentTimeMillis()
 
             if(boxOpen) {
+                oldtime = curtime
                 lcd.backlight = 1.0
             } else {
                 lcd.backlight = 0.0
+                if((curtime - oldtime) < 5000 ){
+                    alarmHandler.snooze()
+                }
             }
 
         } catch (e: PhidgetException) {
             e.printStackTrace()
         }
+
+
     }
 
     override fun onDestroy() {

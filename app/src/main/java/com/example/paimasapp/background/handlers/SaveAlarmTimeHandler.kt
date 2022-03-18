@@ -43,6 +43,11 @@ class SaveAlarmTimeHandler(context: Context) {
         context!!.sendBroadcast(msgIntent)
     }
 
+    fun snooze(){
+        //add 5 min to old time
+        //check overflow
+    }
+
     fun getHour(): Int {
         return this.setHour
     }
