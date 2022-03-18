@@ -12,10 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PAIMASApp">
         <activity
-            android:name="com.example.paimasapp.ui.activities.CardHolderActivity"
+            android:name=".ui.activities.AlarmActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.paimasapp.ui.activities.SettingsActivity"
+            android:name=".ui.activities.CardHolderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.SettingsActivity"
             android:exported="false" />
 
         <service
@@ -23,10 +26,10 @@
             android:enabled="true" />
 
         <activity
-            android:name="com.example.paimasapp.ui.activities.TestActivity"
+            android:name=".ui.activities.TestActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.paimasapp.ui.activities.MainActivity"
+            android:name=".ui.activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -12,8 +12,12 @@ import java.util.*
 class SaveAlarmTimeHandler(context: Context) {
 
     private var context: Context?= context
+    private var setHour = 0
+    private var setMin = 0
 
     fun setAlarm(hour: Int, min: Int) {
+        setHour = hour
+        setMin = min
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.HOUR_OF_DAY, hour)
         calendar.set(Calendar.MINUTE, min)
@@ -39,4 +43,11 @@ class SaveAlarmTimeHandler(context: Context) {
         context!!.sendBroadcast(msgIntent)
     }
 
+    fun getHour(): Int {
+        return this.setHour
+    }
+
+    fun getMin(): Int {
+        return this.setMin
+    }
 }
