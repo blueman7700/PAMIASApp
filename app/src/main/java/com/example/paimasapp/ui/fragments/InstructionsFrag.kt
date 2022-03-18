@@ -1,4 +1,4 @@
-package com.example.paimasapp.activities
+package com.example.paimasapp.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater

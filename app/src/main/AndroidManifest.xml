@@ -12,21 +12,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PAIMASApp">
         <activity
-            android:name=".activities.CardHolderActivity"
+            android:name="com.example.paimasapp.ui.activities.CardHolderActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.SettingsActivity"
+            android:name="com.example.paimasapp.ui.activities.SettingsActivity"
             android:exported="false" />
 
         <service
-            android:name=".services.PhidgetService"
+            android:name=".background.services.PhidgetService"
             android:enabled="true" />
 
         <activity
-            android:name=".activities.TestActivity"
+            android:name="com.example.paimasapp.ui.activities.TestActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name="com.example.paimasapp.ui.activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,7 +36,7 @@
         </activity>
 
         <receiver
-            android:name=".services.myBroadcastReceiver"
+            android:name=".background.services.myBroadcastReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.tester.alarmmanager" />

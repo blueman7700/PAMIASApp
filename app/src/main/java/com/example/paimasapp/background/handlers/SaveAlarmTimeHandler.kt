@@ -1,15 +1,15 @@
-package com.example.paimasapp.activities
+package com.example.paimasapp.background.handlers
 
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import com.example.paimasapp.services.myBroadcastReceiver
+import com.example.paimasapp.background.services.myBroadcastReceiver
 import java.util.*
 
 
-class SaveData(context: Context) {
+class SaveAlarmTimeHandler(context: Context) {
 
     private var context: Context?= context
 

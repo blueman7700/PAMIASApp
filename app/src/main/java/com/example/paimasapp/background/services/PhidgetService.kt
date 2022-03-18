@@ -1,4 +1,4 @@
-package com.example.paimasapp.services
+package com.example.paimasapp.background.services
 
 import android.app.Service
 import android.content.BroadcastReceiver
@@ -11,7 +11,7 @@ import com.phidget22.*
 
 class PhidgetService : Service() {
 
-    val ip = "137.44.93.110"
+    val ip = "137.44.117.172"
     val deviceNumber = 39831
     val port = 5661
     
@@ -20,22 +20,22 @@ class PhidgetService : Service() {
     private val d0 = DigitalOutput()
     private var boxOpen = false
 
-    private val mBroadcastReceiver : BroadcastReceiver = object : BroadcastReceiver() {
+    private val mPhidgetActionReceiver : BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(p0: Context?, p1: Intent?) {
 
             if (p1 != null) {
-                when /* switch */ (p1.action) {
-                    /* case: */ "activate_alarm" -> {
+                when (p1.action) {
+                    "activate_alarm" -> {
                         Log.d("Message_Received", "Alarm Activated")
                         d0.state = true
 
                     }
-                    /* case: */ "deactivate_alarm" -> {
+                    "deactivate_alarm" -> {
                         Log.d("Message_Received", "Alarm Deactivated")
                         d0.state = false
 
                     }
-                    /* case: */ "print_lcd" -> {
+                    "print_lcd" -> {
                         Log.d("Message_Received", "Service received message")
                         val l1: String? = p1.getStringExtra("l1")
                         val l2: String? = p1.getStringExtra("l2")
@@ -67,7 +67,7 @@ class PhidgetService : Service() {
         val intentFilter = IntentFilter("print_lcd")
         intentFilter.addAction("activate_alarm")
         intentFilter.addAction("deactivate_alarm")
-        registerReceiver(mBroadcastReceiver, intentFilter)
+        registerReceiver(mPhidgetActionReceiver, intentFilter)
 
         try {
             // Enable server discovery to list remote Phidgets

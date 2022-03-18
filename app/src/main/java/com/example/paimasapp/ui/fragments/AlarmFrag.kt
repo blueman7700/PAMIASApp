@@ -1,4 +1,4 @@
-package com.example.paimasapp.activities
+package com.example.paimasapp.ui.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.TimePicker
 import androidx.fragment.app.DialogFragment
 import com.example.paimasapp.R
+import com.example.paimasapp.ui.activities.MainActivity
 import com.phidget22.*
 
 class AlarmFrag: DialogFragment() {
@@ -20,7 +21,8 @@ class AlarmFrag: DialogFragment() {
 
 
     private lateinit var pickerOfTimes: TimePicker
-    private var curHour: Int = 0
+    private var currHour: Int = 0
+    private var currMin: Int = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val myView = inflater.inflate(R.layout.alarm_fragment, container, false)
@@ -28,7 +30,7 @@ class AlarmFrag: DialogFragment() {
         // Classy names..
         val buttonOfScheduling = myView.findViewById(R.id.SheduleButton) as Button
         pickerOfTimes = myView.findViewById(R.id.timePicker) as TimePicker
-        curHour = pickerOfTimes.hour
+        currHour = pickerOfTimes.hour
 
         buttonOfScheduling.setOnClickListener {
             val ma = activity as MainActivity
@@ -71,8 +73,9 @@ class AlarmFrag: DialogFragment() {
             if (newTime > 23){
                 newTime = 23.0
             }
-            if( newTime.toInt() != curHour){
-                curHour = newTime.toInt()
+            if( newTime.toInt() != currHour){
+                currHour = newTime.toInt()
+                updateDTPTime()
                 Log.d("Voltage Change", it.voltageRatio.toString())
 
             }
@@ -80,6 +83,13 @@ class AlarmFrag: DialogFragment() {
         } catch (e: PhidgetException) {
             e.printStackTrace()
         }
+    }
+
+    private fun updateDTPTime() {
+        pickerOfTimes.isEnabled = false
+        pickerOfTimes.hour = currHour
+        pickerOfTimes.minute = currMin
+        pickerOfTimes.isEnabled = true
     }
 
     /*override fun onResume() {

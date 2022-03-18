@@ -1,10 +1,9 @@
-package com.example.paimasapp.activities
+package com.example.paimasapp.ui.activities
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.content.res.AssetManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -14,8 +13,11 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.example.paimasapp.R
+import com.example.paimasapp.background.handlers.SaveAlarmTimeHandler
 // Comment out to run sans Phidgets
-import com.example.paimasapp.services.PhidgetService
+import com.example.paimasapp.background.services.PhidgetService
+import com.example.paimasapp.ui.fragments.AlarmFrag
+import com.example.paimasapp.ui.fragments.InstructionsFrag
 import com.phidget22.*
 
 class MainActivity : AppCompatActivity() {
@@ -98,7 +100,7 @@ class MainActivity : AppCompatActivity() {
 
         "Alarm Set: $hours:${String.format("%02d", min)}".also { timeDisplay.text = it }
 
-        val saveData = SaveData(this)
+        val saveData = SaveAlarmTimeHandler(this)
         saveData.setAlarm(hours, min)
     }
 

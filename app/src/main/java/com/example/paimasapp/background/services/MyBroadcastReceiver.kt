@@ -1,4 +1,4 @@
-package com.example.paimasapp.services
+package com.example.paimasapp.background.services
 
 import android.content.BroadcastReceiver
 import android.content.Context

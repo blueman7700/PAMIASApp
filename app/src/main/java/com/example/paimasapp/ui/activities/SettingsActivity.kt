@@ -1,4 +1,4 @@
-package com.example.paimasapp.activities
+package com.example.paimasapp.ui.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
