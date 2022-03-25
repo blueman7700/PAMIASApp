@@ -97,9 +97,6 @@ class AlarmFrag: DialogFragment() {
                     Log.d("Voltage Change", it.voltageRatio.toString())
                 }
             }
-
-
-
         } catch (e: PhidgetException) {
             e.printStackTrace()
         }

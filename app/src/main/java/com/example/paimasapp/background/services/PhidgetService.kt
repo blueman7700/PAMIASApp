@@ -20,7 +20,8 @@ class PhidgetService : Service() {
     private val v0 = VoltageInput()
     private val d0 = DigitalOutput()
     private var boxOpen = false
-    val alarmHandler: SaveAlarmTimeHandler = SaveAlarmTimeHandler(this)
+    private val alarmHandler: SaveAlarmTimeHandler = SaveAlarmTimeHandler(this)
+
     private val mPhidgetActionReceiver : BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(p0: Context?, p1: Intent?) {
 
@@ -117,14 +118,14 @@ class PhidgetService : Service() {
 
         try {
             boxOpen = !(it.voltage > 3f || it.voltage < 2f)
-            var curtime = System.currentTimeMillis()
+            val currtime = System.currentTimeMillis()
 
             if(boxOpen) {
-                oldtime = curtime
+                oldtime = currtime
                 lcd.backlight = 1.0
             } else {
                 lcd.backlight = 0.0
-                if((curtime - oldtime) < 5000 ){
+                if((currtime - oldtime) < 5000 ){
                     alarmHandler.snooze()
                 }
             }
@@ -132,8 +133,6 @@ class PhidgetService : Service() {
         } catch (e: PhidgetException) {
             e.printStackTrace()
         }
-
-
     }
 
     override fun onDestroy() {
