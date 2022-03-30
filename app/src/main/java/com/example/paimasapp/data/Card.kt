@@ -1,11 +1,4 @@
-package com.example.paimasapp.structs
-
-import android.content.res.AssetManager
-import android.content.res.Resources
-import cc.ekblad.toml.TomlValue
-import cc.ekblad.toml.serialization.from
-import cc.ekblad.toml.transcoding.get
-import java.io.InputStream
+package com.example.paimasapp.data
 
 data class Card(val display: String, val options: ArrayList<String>, val answer: String)
 

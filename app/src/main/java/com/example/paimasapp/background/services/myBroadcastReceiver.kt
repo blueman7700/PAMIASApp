@@ -7,12 +7,13 @@ import android.util.Log
 import android.widget.Toast
 import com.example.paimasapp.background.handlers.SaveAlarmTimeHandler
 
-class MyBroadcastReceiver: BroadcastReceiver() {
+class myBroadcastReceiver: BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent : Intent?) {
+        Log.d("receiver", "detected message: ${intent!!.action}")
         if (intent!!.action.equals("set_alarm")) {
             val b = intent.extras
-            //Toast.makeText(context, b!!.getString("message"), Toast.LENGTH_LONG).show()
+            Toast.makeText(context, b!!.getString("message"), Toast.LENGTH_LONG).show()
             Log.d("test", "Alarm Trigger")
 
             // Put alarm trigger code here
@@ -25,8 +26,8 @@ class MyBroadcastReceiver: BroadcastReceiver() {
             broadcastIntent.putExtra("l2", "Get Rickrolled")
             broadcastIntent.action = "print_lcd"
 
-            context.sendBroadcast(broadcastIntent)
-            context.sendBroadcast(alarmIntent)
+            context!!.sendBroadcast(broadcastIntent)
+            context!!.sendBroadcast(alarmIntent)
         }
     }
 }

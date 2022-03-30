@@ -103,6 +103,13 @@
             android:text="This button, opens instructions"
             android:textColor="#ECEFF1" />
 
+        <Button
+            android:id="@+id/btnCards"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="openCardView"
+            android:textColor="@color/Text" />
+
     </LinearLayout>
 
 

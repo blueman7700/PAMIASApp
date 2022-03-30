@@ -12,7 +12,7 @@ import com.phidget22.*
 
 class PhidgetService : Service() {
 
-    val ip = "137.44.117.172"
+    val ip = "192.168.56.1"
     val deviceNumber = 39831
     val port = 5661
     private var oldtime: Long = 0
@@ -30,7 +30,6 @@ class PhidgetService : Service() {
                     "activate_alarm" -> {
                         Log.d("Message_Received", "Alarm Activated")
                         d0.state = true
-
                     }
                     "deactivate_alarm" -> {
                         Log.d("Message_Received", "Alarm Deactivated")
@@ -38,7 +37,7 @@ class PhidgetService : Service() {
 
                     }
                     "print_lcd" -> {
-                        Log.d("Message_Received", "Service received message")
+                        Log.d("Message_Received", "Service received print request")
                         val l1: String? = p1.getStringExtra("l1")
                         val l2: String? = p1.getStringExtra("l2")
 

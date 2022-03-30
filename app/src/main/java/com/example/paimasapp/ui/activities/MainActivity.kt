@@ -55,6 +55,9 @@ class MainActivity : AppCompatActivity() {
         val instructionsButton = findViewById<Button>(R.id.open_instructions)
         instructionsButton.setOnClickListener { onOpeningInstructions() }
 
+        val openCardViewButton = findViewById<Button>(R.id.btnCards)
+        openCardViewButton.setOnClickListener { onOpenCardView() }
+
         val intentFilter = IntentFilter("server_start")
         registerReceiver(br, intentFilter)
 
@@ -118,7 +121,11 @@ class MainActivity : AppCompatActivity() {
     private fun onOpeningInstructions() {
         val instructionsFragment = InstructionsFrag()
         instructionsFragment.show(supportFragmentManager, "What goes in here?")
+    }
 
+    private fun onOpenCardView() {
+        val intent = Intent(this, CardHolderActivity::class.java)
+        this.startActivity(intent)
     }
 
 }

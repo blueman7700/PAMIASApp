@@ -5,7 +5,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import com.example.paimasapp.background.services.MyBroadcastReceiver
+import com.example.paimasapp.background.services.myBroadcastReceiver
 import java.util.*
 
 
@@ -32,19 +32,21 @@ class SaveAlarmTimeHandler(private val context: Context) {
 
         val am = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        val intent = Intent(context, MyBroadcastReceiver::class.java)
+        val intent = Intent(context, myBroadcastReceiver::class.java)
 
         intent.putExtra("message", "alarm time")
         Log.d("test", "Set Intent")
         intent.action="set_alarm"
 
-        storedIntent = PendingIntent.getBroadcast(
+        val pendingIntent = PendingIntent.getBroadcast(
             context,
             111,
             intent,
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
 
-        am.set(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, storedIntent)
+        storedIntent = pendingIntent
+
+        am.set(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
         Log.d("test", "Alarm Set")
 
         val msgIntent = Intent()
@@ -55,8 +57,7 @@ class SaveAlarmTimeHandler(private val context: Context) {
     }
 
     fun snooze() {
-        //add 5 min to old time
-        //check overflow
+
         if(isActive) {
             this.deactivate()
             var newMin = setMin + 5
