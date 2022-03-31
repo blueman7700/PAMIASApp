@@ -1,5 +1,9 @@
 package com.example.paimasapp.ui.activities
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -15,6 +19,27 @@ private const val NUM_CARDS = 3
 
 class CardHolderActivity : FragmentActivity() {
 
+    private val interactionReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(p0: Context?, p1: Intent?) {
+            if(p1 != null) {
+                when(p1.action) {
+                    "mental" -> {
+                        mPager.setCurrentItem(1, true)
+                    }
+                    "physical" -> {
+                        mPager.setCurrentItem(2, true)
+                    }
+                    "sensor" -> {
+                        val intent = Intent()
+                        intent.action = "deactivate_alarm"
+                        sendBroadcast(intent)
+                    }
+                }
+            }
+        }
+
+    }
+
     private inner class CardPagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
         /**
          * Returns the total number of items in the data set held by the adapter.
@@ -22,6 +47,8 @@ class CardHolderActivity : FragmentActivity() {
          * @return The total number of items in this adapter.
          */
         override fun getItemCount(): Int = NUM_CARDS
+
+
 
         /**
          * Provide a new Fragment associated with the specified position.
@@ -66,8 +93,14 @@ class CardHolderActivity : FragmentActivity() {
 
         mPager = findViewById(R.id.pager)
         mPager.setPageTransformer(ZoomOutCardTransformer())
+        mPager.isUserInputEnabled = false
         val mAdapter = CardPagerAdapter(this)
         mPager.adapter = mAdapter
+
+        val intentFilter = IntentFilter("mental")
+        intentFilter.addAction("physical")
+        intentFilter.addAction("sensor")
+        registerReceiver(interactionReceiver, intentFilter)
     }
 
     override fun onBackPressed() {

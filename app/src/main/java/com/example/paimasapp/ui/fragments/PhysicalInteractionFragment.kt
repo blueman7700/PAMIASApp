@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ProgressBar
 import androidx.appcompat.widget.AppCompatButton
 import com.example.paimasapp.R
@@ -34,7 +35,7 @@ class PhysicalInteractionFragment : Fragment() {
     private lateinit var pbTarget: ProgressBar
     private lateinit var pbCurrent: ProgressBar
 
-    private lateinit var btnConfirm: AppCompatButton
+    private lateinit var btnConfirm: Button
 
     private val v0 = VoltageRatioInput()
 
@@ -73,14 +74,14 @@ class PhysicalInteractionFragment : Fragment() {
 
         pbTarget.progress = Random().nextInt(100)
 
-        try {
-            v0.channel = 0
-            v0.deviceSerialNumber = 0
-            v0.open()
-            v0.addVoltageRatioChangeListener(voltageRatioChangeListener)
-        } catch (e: PhidgetException) {
-            e.printStackTrace()
-        }
+//        try {
+//            v0.channel = 0
+//            v0.deviceSerialNumber = 0
+//            v0.open()
+//            v0.addVoltageRatioChangeListener(voltageRatioChangeListener)
+//        } catch (e: PhidgetException) {
+//            e.printStackTrace()
+//        }
 
 
     }
