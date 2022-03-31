@@ -32,6 +32,7 @@ class SensorInteractionFragment : Fragment(), SensorEventListener {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var mSensorManager: SensorManager
+    private lateinit var accelText: TextView
     var mSensor: Sensor? = null
     var targetVal: Int = 0
 
@@ -81,6 +82,8 @@ class SensorInteractionFragment : Fragment(), SensorEventListener {
         mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL)
         Log.d("nullCheck","SensorManager created?")
 
+        accelText = this.requireView().findViewById(R.id.accelText)
+
         targetVal = Random().nextInt(68) - 34
 
         val taskText = "Rotate your device in the Z axis to $targetVal"
@@ -101,8 +104,7 @@ class SensorInteractionFragment : Fragment(), SensorEventListener {
 
                 val targetPos = 0.98 * angle + 0.02 * acc_data
 
-                this.requireActivity().findViewById<TextView>(R.id.accelText).text = "Cur X: " +
-                        targetPos.toInt().toString()
+                accelText.text = "Cur X: ${targetPos.toInt()}"
                 if(targetPos.toInt() == targetVal){
                     Log.d("Trigger","Target threshold met")
 

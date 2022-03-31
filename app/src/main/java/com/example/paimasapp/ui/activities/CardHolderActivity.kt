@@ -24,15 +24,16 @@ class CardHolderActivity : FragmentActivity() {
             if(p1 != null) {
                 when(p1.action) {
                     "mental" -> {
-                        mPager.setCurrentItem(1, true)
+                        mPager.currentItem += 1
                     }
                     "physical" -> {
-                        mPager.setCurrentItem(2, true)
+                        mPager.currentItem += 1
                     }
                     "sensor" -> {
                         val intent = Intent()
                         intent.action = "deactivate_alarm"
                         sendBroadcast(intent)
+                        finish()
                     }
                 }
             }
@@ -93,9 +94,10 @@ class CardHolderActivity : FragmentActivity() {
 
         mPager = findViewById(R.id.pager)
         mPager.setPageTransformer(ZoomOutCardTransformer())
-        mPager.isUserInputEnabled = false
+
         val mAdapter = CardPagerAdapter(this)
         mPager.adapter = mAdapter
+        mPager.isUserInputEnabled = false
 
         val intentFilter = IntentFilter("mental")
         intentFilter.addAction("physical")

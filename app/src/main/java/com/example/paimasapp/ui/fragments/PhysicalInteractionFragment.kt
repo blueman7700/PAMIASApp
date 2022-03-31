@@ -1,5 +1,6 @@
 package com.example.paimasapp.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -40,7 +41,9 @@ class PhysicalInteractionFragment : Fragment() {
     private val v0 = VoltageRatioInput()
 
     private val voltageRatioChangeListener = VoltageRatioInputVoltageRatioChangeListener {
-        val newVal = (100 / it.voltageRatio).roundToInt()
+        val newVal = (100 * it.voltageRatio).roundToInt()
+
+        Log.d("slider", (100 * it.voltageRatio).roundToInt().toString())
 
         this.requireActivity().runOnUiThread {
             pbCurrent.progress = newVal
@@ -74,14 +77,14 @@ class PhysicalInteractionFragment : Fragment() {
 
         pbTarget.progress = Random().nextInt(100)
 
-//        try {
-//            v0.channel = 0
-//            v0.deviceSerialNumber = 0
-//            v0.open()
-//            v0.addVoltageRatioChangeListener(voltageRatioChangeListener)
-//        } catch (e: PhidgetException) {
-//            e.printStackTrace()
-//        }
+        try {
+            v0.channel = 7
+            v0.deviceSerialNumber = 39831
+            v0.open()
+            v0.addVoltageRatioChangeListener(voltageRatioChangeListener)
+        } catch (e: PhidgetException) {
+            e.printStackTrace()
+        }
 
 
     }
@@ -111,6 +114,14 @@ class PhysicalInteractionFragment : Fragment() {
             && pbCurrent.progress < (pbTarget.progress + 5)) {
             //TODO: notify complete
             Log.d("progress", "Physical Interaction Complete")
+            val intent = Intent()
+            intent.action = "physical"
+            this.requireActivity().sendBroadcast(intent)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        v0.close()
     }
 }

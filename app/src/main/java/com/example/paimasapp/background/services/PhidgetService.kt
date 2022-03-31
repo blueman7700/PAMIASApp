@@ -19,6 +19,7 @@ class PhidgetService : Service() {
     private val lcd = LCD()
     private val v0 = VoltageInput()
     private val d0 = DigitalOutput()
+    private val d1 = DigitalOutput()
     private var boxOpen = false
     private val alarmHandler: SaveAlarmTimeHandler = SaveAlarmTimeHandler(this)
 
@@ -30,11 +31,12 @@ class PhidgetService : Service() {
                     "activate_alarm" -> {
                         Log.d("Message_Received", "Alarm Activated")
                         d0.state = true
+                        d1.state = true
                     }
                     "deactivate_alarm" -> {
                         Log.d("Message_Received", "Alarm Deactivated")
                         d0.state = false
-
+                        d1.state = false
                     }
                     "print_lcd" -> {
                         Log.d("Message_Received", "Service received print request")
@@ -89,8 +91,12 @@ class PhidgetService : Service() {
             d0.deviceSerialNumber = deviceNumber
             d0.channel = 0
 
-            v0.open(5000)
-            d0.open(5000)
+            d1.deviceSerialNumber = deviceNumber
+            d1.channel = 1
+
+            v0.open()
+            d0.open()
+            d1.open()
 
             v0.addAttachListener(attachListener)
             v0.addDetachListener(detachListener)
