@@ -1,13 +1,16 @@
 package com.example.paimasapp.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import androidx.appcompat.widget.AppCompatButton
 import com.example.paimasapp.R
 import com.phidget22.CurrentInput
+import com.phidget22.PhidgetException
 import com.phidget22.VoltageRatioInput
 import com.phidget22.VoltageRatioInputVoltageRatioChangeListener
 import java.util.*
@@ -30,6 +33,8 @@ class PhysicalInteractionFragment : Fragment() {
 
     private lateinit var pbTarget: ProgressBar
     private lateinit var pbCurrent: ProgressBar
+
+    private lateinit var btnConfirm: AppCompatButton
 
     private val v0 = VoltageRatioInput()
 
@@ -62,8 +67,22 @@ class PhysicalInteractionFragment : Fragment() {
 
         pbTarget = this.requireView().findViewById(R.id.pbTarget)
         pbCurrent = this.requireView().findViewById(R.id.pbCurrent)
+        btnConfirm = this.requireView().findViewById(R.id.btnClose)
+
+        btnConfirm.setOnClickListener { checkIfCanContinue() }
 
         pbTarget.progress = Random().nextInt(100)
+
+        try {
+            v0.channel = 0
+            v0.deviceSerialNumber = 0
+            v0.open()
+            v0.addVoltageRatioChangeListener(voltageRatioChangeListener)
+        } catch (e: PhidgetException) {
+            e.printStackTrace()
+        }
+
+
     }
 
     companion object {
@@ -84,5 +103,13 @@ class PhysicalInteractionFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+    
+    private fun checkIfCanContinue() {
+        if (pbCurrent.progress > (pbTarget.progress - 5)
+            && pbCurrent.progress < (pbTarget.progress + 5)) {
+            //TODO: notify complete
+            Log.d("progress", "Physical Interaction Complete")
+        }
     }
 }
