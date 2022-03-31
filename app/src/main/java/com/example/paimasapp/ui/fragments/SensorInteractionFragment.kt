@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.paimasapp.R
 import com.phidget22.PhidgetException
@@ -75,34 +76,25 @@ class SensorInteractionFragment : Fragment(), SensorEventListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //I dont think this is attacking properly
+        mSensorManager = this.requireActivity().getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        mSensor = mSensorManager!!.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        Log.d("nullCheck","SensorManager created?")
 
-        mSensorManager = activity?.getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        mSensor = mSensorManager!!.getDefaultSensor(Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR)
 
     }
-    var dtOld = SystemClock.elapsedRealtimeNanos()
+
     override fun onSensorChanged(p0: SensorEvent?) {
         if (p0 != null) {
-            if (p0.sensor.getType() == Sensor.TYPE_GEOMAGNETIC_ROTATION_VECTOR) {
-                /*xTextView.setText("X = " + String.format("%.3f", event.values.get(0)))
-                yTextView.setText("Y = " + String.format("%.3f", event.values.get(1)))
-                zTextView.setText("Z = " + String.format("%.3f", event.values.get(2)))
-                aTextView.setText("A = " + String.format("%.3f", event.values.get(3)))*/
-                try {
-                    val gyro: Float = p0.values[1]
-                    var dt: Double = (p0.timestamp - dtOld).toDouble()
-                    dt /= 1000000.0
-                    val angle: Double = +gyro * dt
-                    val acc_data: Float = p0.values[3]
-                    dtOld = p0.timestamp
-                    val targetPos = 0.98 * angle + 0.02 * acc_data
-                    Log.d("Test", targetPos.toString())
+            if(p0.sensor.type == Sensor.TYPE_ACCELEROMETER){
+                this.requireActivity().findViewById<TextView>(R.id.accelText).text =
+                    p0.values.toString()
 
-
-                } catch (phidgetException: PhidgetException) {
-                    phidgetException.printStackTrace()
-                }
+            } else {
+                Log.d("nullCheck","Sensor is null")
             }
+        } else {
+            Log.d("nullCheck","SensorEvent is null")
         }
     }
 
