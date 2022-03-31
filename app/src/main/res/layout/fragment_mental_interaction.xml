@@ -22,7 +22,7 @@
         android:id="@+id/btnClose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Close"
+        android:text="Next"
         android:textColor="@color/Text"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
