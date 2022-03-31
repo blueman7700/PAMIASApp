@@ -104,7 +104,7 @@ class PhysicalInteractionFragment : Fragment() {
                 }
             }
     }
-    
+
     private fun checkIfCanContinue() {
         if (pbCurrent.progress > (pbTarget.progress - 5)
             && pbCurrent.progress < (pbTarget.progress + 5)) {

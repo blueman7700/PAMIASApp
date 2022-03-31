@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatButton
 import com.example.paimasapp.R
 import org.w3c.dom.Text
 import java.util.*
@@ -28,6 +29,13 @@ class MentalInteractionFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    private lateinit var btnAns1: AppCompatButton
+    private lateinit var btnAns2: AppCompatButton
+    private lateinit var btnAns3: AppCompatButton
+    private lateinit var btnAns4: AppCompatButton
+    private lateinit var btnContinue: AppCompatButton
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,10 +79,14 @@ class MentalInteractionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val ans1 = this.requireView().findViewById<Button>(R.id.Answer1)
-        val ans2 = this.requireView().findViewById<Button>(R.id.Answer2)
-        val ans3 = this.requireView().findViewById<Button>(R.id.Answer3)
-        val ans4 = this.requireView().findViewById<Button>(R.id.Answer4)
+        btnAns1 = this.requireView().findViewById(R.id.Answer1)
+        btnAns2 = this.requireView().findViewById(R.id.Answer2)
+        btnAns3 = this.requireView().findViewById(R.id.Answer3)
+        btnAns4 = this.requireView().findViewById(R.id.Answer4)
+
+        btnContinue = this.requireView().findViewById(R.id.btnClose)
+        btnContinue.isEnabled = false
+        btnContinue.setOnClickListener { continueToNextInteraction() }
 
         val question = this.requireView().findViewById<TextView>(R.id.questionText)
 
@@ -104,55 +116,57 @@ class MentalInteractionFragment : Fragment() {
 
         arr.shuffle()
 
-
-
         var index = 0
         while (index < arr.size) {
             when(index){
                 0 -> {
-                    ans1.text = arr[0].toString()
+                    btnAns1.text = arr[0].toString()
                 }1 -> {
-                    ans2.text = arr[1].toString()
+                    btnAns2.text = arr[1].toString()
                 }2 -> {
-                    ans3.text = arr[2].toString()
+                    btnAns3.text = arr[2].toString()
                 }3-> {
-                    ans4.text = arr[3].toString()
+                    btnAns4.text = arr[3].toString()
                 }
             }
             index++
         }
 
-        ans1.setOnClickListener{
-            if(ans1.text == answer.toString()){
+        btnAns1.setOnClickListener{
+            if(btnAns1.text == answer.toString()){
                 //if correct do...
                 Log.d("Ans","This is correct")
+                handleCorrectAnswer()
             } else {
                 Toast.makeText(this.requireActivity(), "Incorrect", Toast.LENGTH_SHORT).show()
                 Log.d("Ans","Incorrect")
             }
         }
-        ans2.setOnClickListener{
-            if(ans2.text == answer.toString()){
+        btnAns2.setOnClickListener{
+            if(btnAns2.text == answer.toString()){
                 //if correct do...
                 Log.d("Ans","This is correct")
+                handleCorrectAnswer()
             }else {
                 Toast.makeText(this.requireActivity(), "Incorrect", Toast.LENGTH_SHORT).show()
                 Log.d("Ans","Incorrect")
             }
         }
-        ans3.setOnClickListener{
-            if(ans3.text == answer.toString()){
+        btnAns3.setOnClickListener{
+            if(btnAns3.text == answer.toString()){
                 //if correct do...
                 Log.d("Ans","This is correct")
+                handleCorrectAnswer()
             }else {
                 Toast.makeText(this.requireActivity(), "Incorrect", Toast.LENGTH_SHORT).show()
                 Log.d("Ans","Incorrect")
             }
         }
-        ans4.setOnClickListener{
-            if(ans4.text == answer.toString()){
+        btnAns4.setOnClickListener{
+            if(btnAns4.text == answer.toString()){
                 //if correct do...
                 Log.d("Ans","This is correct")
+                handleCorrectAnswer()
             }else {
                 Toast.makeText(this.requireActivity(), "Incorrect", Toast.LENGTH_SHORT).show()
                 Log.d("Ans","Incorrect")
@@ -160,4 +174,17 @@ class MentalInteractionFragment : Fragment() {
         }
     }
 
+    private fun handleCorrectAnswer() {
+        //disable all buttons
+        btnAns1.isEnabled = false
+        btnAns2.isEnabled = false
+        btnAns3.isEnabled = false
+        btnAns4.isEnabled = false
+
+        btnContinue.isEnabled = true
+    }
+
+    private fun continueToNextInteraction() {
+        //TODO: Notify complete
+    }
 }
