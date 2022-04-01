@@ -49,10 +49,10 @@ class AlarmFrag: DialogFragment() {
             din0.channel = 6
             din1.channel = 7
 
-            v0.open(5000)
-            dout0.open(5000)
-            din0.open(5000)
-            din1.open(5000)
+            v0.open(1000)
+            dout0.open(1000)
+            din0.open(1000)
+            din1.open(1000)
 
             v0.addAttachListener(attachListener)
             v0.addDetachListener(detachListener)

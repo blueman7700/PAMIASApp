@@ -22,8 +22,8 @@ class myBroadcastReceiver: BroadcastReceiver() {
             SaveAlarmTimeHandler(context!!).setActive(true)
 
             alarmIntent.action = "activate_alarm"
-            broadcastIntent.putExtra("l1", "Alarm On!")
-            broadcastIntent.putExtra("l2", "Get Rickrolled")
+            broadcastIntent.putExtra("l1", "      Alarm On!     ")
+            broadcastIntent.putExtra("l2", "      Wake Up!      ")
             broadcastIntent.action = "print_lcd"
 
             context!!.sendBroadcast(broadcastIntent)

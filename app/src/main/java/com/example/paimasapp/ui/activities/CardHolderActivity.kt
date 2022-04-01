@@ -33,6 +33,11 @@ class CardHolderActivity : FragmentActivity() {
                         val intent = Intent()
                         intent.action = "deactivate_alarm"
                         sendBroadcast(intent)
+                        val message = Intent()
+                        message.action = "print_lcd"
+                        message.putExtra("l1", "Alarm Off")
+                        message.putExtra("l2", "Good Morning!")
+                        sendBroadcast(message)
                         finish()
                     }
                 }
@@ -103,6 +108,11 @@ class CardHolderActivity : FragmentActivity() {
         intentFilter.addAction("physical")
         intentFilter.addAction("sensor")
         registerReceiver(interactionReceiver, intentFilter)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(interactionReceiver)
     }
 
     override fun onBackPressed() {

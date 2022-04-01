@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -30,9 +31,22 @@ class MainActivity : AppCompatActivity() {
     // Comment out to run sans Phidgets
     private var boxOpen : Boolean = true
 
+    private lateinit var btnOpenCards: Button
+
     private val br : BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(p0: Context?, p1: Intent?) {
             Log.d("Server", "Server Message Received")
+            if(p1 != null) {
+                if(p1.action == "activate_alarm") {
+                    btnOpenCards.visibility = View.VISIBLE
+                } else if (p1.action == "deactivate_alarm") {
+                    btnOpenCards.visibility = View.INVISIBLE
+                } else if (p1.action == "alarm_set") {
+                    val sath = SaveAlarmTimeHandler(this@MainActivity)
+                    "Alarm Set: ${sath.getHour()}:${String.format("%02d", sath.getMin())}"
+                        .also { findViewById<TextView>(R.id.timeDisplay).text = it }
+                }
+            }
         }
     }
 
@@ -41,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setSupportActionBar(findViewById(R.id.toolbar))
-        supportActionBar!!.title = "PAIMAS"
+        supportActionBar!!.title = "PAMIAS"
 
         val button = findViewById<Button>(R.id.setAlarm)
         button.setOnClickListener{
@@ -51,14 +65,19 @@ class MainActivity : AppCompatActivity() {
         val deactivateButton = findViewById<Button>(R.id.btn_deactivate)
         deactivateButton.setOnClickListener { onDisableClick() }
 
-        // Hopefully this works
-        val instructionsButton = findViewById<Button>(R.id.open_instructions)
-        instructionsButton.setOnClickListener { onOpeningInstructions() }
+        btnOpenCards = findViewById<Button>(R.id.btnCards)
+        btnOpenCards.setOnClickListener { onOpenCardView() }
 
-        val openCardViewButton = findViewById<Button>(R.id.btnCards)
-        openCardViewButton.setOnClickListener { onOpenCardView() }
+        btnOpenCards.visibility = if(SaveAlarmTimeHandler(this).isActive()) {
+            View.VISIBLE
+        } else {
+            View.INVISIBLE
+        }
 
         val intentFilter = IntentFilter("server_start")
+        intentFilter.addAction("activate_alarm")
+        intentFilter.addAction("deactivate_alarm")
+        intentFilter.addAction("alarm_set")
         registerReceiver(br, intentFilter)
 
         // Comment out to run sans Phidgets

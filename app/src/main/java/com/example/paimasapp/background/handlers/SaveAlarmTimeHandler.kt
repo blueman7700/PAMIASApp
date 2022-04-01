@@ -54,13 +54,16 @@ class SaveAlarmTimeHandler(private val context: Context) {
         msgIntent.putExtra("l1", "Alarm Set For:")
         msgIntent.putExtra("l2", String.format("%02d:%02d", hour, min))
         context.sendBroadcast(msgIntent)
+        val update = Intent()
+        update.action = "alarm_set"
+        context.sendBroadcast(update)
     }
 
     fun snooze() {
 
         if(isActive) {
             this.deactivate()
-            var newMin = setMin + 5
+            var newMin = setMin + 1
             var newHour = setHour
             if(newMin >= 60) {
                 //if the new minutes are >= 60, then increment the hour
@@ -97,5 +100,9 @@ class SaveAlarmTimeHandler(private val context: Context) {
 
     fun setActive(state: Boolean) {
         isActive = state
+    }
+
+    fun isActive(): Boolean {
+        return isActive
     }
 }

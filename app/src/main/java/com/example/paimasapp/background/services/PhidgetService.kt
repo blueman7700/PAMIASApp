@@ -37,6 +37,7 @@ class PhidgetService : Service() {
                         Log.d("Message_Received", "Alarm Deactivated")
                         d0.state = false
                         d1.state = false
+                        lcd.clear()
                     }
                     "print_lcd" -> {
                         Log.d("Message_Received", "Service received print request")
@@ -81,7 +82,7 @@ class PhidgetService : Service() {
             Log.d("srv_info", "Server Started!")
 
             lcd.deviceSerialNumber = deviceNumber
-            lcd.open(5000)
+            lcd.open(1000)
             lcd.backlight = 1.0
             lcd.contrast = 0.5
 
@@ -94,15 +95,14 @@ class PhidgetService : Service() {
             d1.deviceSerialNumber = deviceNumber
             d1.channel = 1
 
-            v0.open()
-            d0.open()
-            d1.open()
+            v0.open(1000)
+            d0.open(1000)
+            d1.open(1000)
 
+            v0.voltageChangeTrigger = 0.1
             v0.addAttachListener(attachListener)
             v0.addDetachListener(detachListener)
             v0.addVoltageChangeListener(voltageChangeListener)
-
-            v0.voltageChangeTrigger = 0.1
 
             sendBroadcast()
         } catch (e: PhidgetException) {

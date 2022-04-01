@@ -22,6 +22,7 @@
         android:id="@+id/btnClose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/Primary"
         android:text="Next"
         android:textColor="@color/Text"
         android:textSize="24sp"
@@ -64,6 +65,7 @@
                 android:layout_height="100dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:backgroundTint="@color/Primary"
                 android:text="Button" />
 
             <Button
@@ -72,6 +74,7 @@
                 android:layout_height="100dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:backgroundTint="@color/Primary"
                 android:text="Button" />
         </LinearLayout>
 
@@ -86,6 +89,7 @@
                 android:layout_height="100dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:backgroundTint="@color/Primary"
                 android:text="Button" />
 
             <Button
@@ -94,6 +98,7 @@
                 android:layout_height="100dp"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:backgroundTint="@color/Primary"
                 android:text="Button" />
         </LinearLayout>
     </LinearLayout>
